@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r}
+
+library(tidyverse)
+library(forcats)
+
+Time <- c("1 Mo", 	"2 Mo", 	"3 Mo",	"6 Mo",	"1 Yr",	"2 Yr", 	"3 Yr", 	"5 Yr", "7 Yr",	"10 Yr",	"20 Yr"	,"30 Yr")
+Yield <- c(.03, .19, .35, .65, 1.03, 1.47, 1.68, 1.82, 1.90, 1.90, 2.3, 2.24)
+
+
+Treasury <- data.frame(Time, Yield)
+
+ Treasury %>%
+  mutate(name = fct_relevel(Time, 
+            "1 Mo", 	"2 Mo", 	"3 Mo",	"6 Mo",	"1 Yr",	"2 Yr", 	"3 Yr", 	"5 Yr", "7 Yr",	"10 Yr",	"20 Yr"	,"30 Yr")) %>%
+  ggplot( aes(x=name, y=Yield)) +
+    geom_bar(stat="identity") + geom_text(aes(label = Yield), vjust = 0)+ ggtitle("US Treasury Yield Curve February 18th 2022") + ylab("Yield in %") + xlab("Length of Treasury") + 
+     theme_bw() + 
+     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+       panel.border = element_blank(),
+       axis.line = element_line())
+
+```
+
+
